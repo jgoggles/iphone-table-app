@@ -12,12 +12,24 @@
 @interface Resort : NSObject {
 	NSString *name;
 	NSNumber *snowTwoDays;
+	NSNumber *baseSnow;
+	NSString *status;
+	NSNumber *liftsOpen;
+	NSNumber *totalLifts;
 }
 
 - (id)initWithName:(NSString *)newName
-	 snowTwoDays:(NSNumber *)snowTwoDays;
+	   snowTwoDays:(NSNumber *)newSnowTwoDays
+		  baseSnow:(NSNumber *)newBaseSnow
+			status:(NSString *)newStatus
+		 liftsOpen:(NSNumber *)newLiftsOpen
+		totalLifts:(NSNumber *)newTotalLifts;
 
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic, copy) NSNumber *snowTwoDays;
+@property(nonatomic, copy) NSNumber *baseSnow;
+@property(nonatomic, copy) NSString *status;
+@property(nonatomic, copy) NSNumber *liftsOpen;
+@property(nonatomic, copy) NSNumber *totalLifts;
 
 @end

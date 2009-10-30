@@ -9,7 +9,13 @@
 #import "Resort.h"
 
 @interface RootViewController : UITableViewController {
-	NSMutableArray *resortsArray;
+	NSMutableArray	*resortsArray;
+	NSMutableData	*snowData;
+	UITableViewCell *nibLoadedCell;
+	UIActivityIndicatorView *activityIndicator;
 }
+
+@property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedCell;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
