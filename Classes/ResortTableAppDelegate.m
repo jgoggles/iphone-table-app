@@ -9,6 +9,14 @@
 #import "ResortTableAppDelegate.h"
 #import "RootViewController.h"
 
+// custom navbar image
+@implementation UINavigationBar (CustomImage)
+- (void)drawRect:(CGRect)rect {
+	UIImage *image = [UIImage imageNamed: @"snow_iphone.png"];
+	[image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+}
+@end
+// end custom navbar image
 
 @implementation ResortTableAppDelegate
 
