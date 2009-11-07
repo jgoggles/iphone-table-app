@@ -8,7 +8,7 @@
 
 #import "RootViewController.h"
 
-#define INTERESTING_TAG_NAMES @"Name", @"BaseDepth", @"Open", @"NewSnow48", @"NumLiftsTotal", @"NumLiftsOpen", nil
+#define INTERESTING_TAG_NAMES @"Name", @"TopDepth", @"Open", @"NewSnow48", @"NumLiftsTotal", @"NumLiftsOpen", nil
 
 
 @implementation RootViewController
@@ -63,6 +63,11 @@
 	} else if ([interestingTags containsObject:elementName]) {
 		currentElementName = elementName;
 		currentText = [[NSMutableString alloc] init];
+		if([elementName isEqualToString:@"TopDepth"]) {
+			if([[attributesDict objectForKey:@"unit"] isEqualToString:@"IN"]) {
+				NSLog(@"TopDepth");
+			}
+		}
 	}
 }
 
@@ -79,9 +84,13 @@
 		Resort *aResort = [[Resort alloc] init];
 		aResort.name = [currentSnowDataDict valueForKey:@"Name"];
 		aResort.snowTwoDays = [currentSnowDataDict valueForKey:@"NewSnow48"];
-		aResort.baseSnow = [currentSnowDataDict valueForKey:@"BaseDepth"];
+		aResort.baseSnow = [currentSnowDataDict valueForKey:@"TopDepth"];
 		aResort.status = [currentSnowDataDict valueForKey:@"Open"];
-		aResort.liftsOpen = [currentSnowDataDict valueForKey:@"NumLiftsOpen"];
+		if ([[currentSnowDataDict valueForKey:@"NumLiftsOpen"] isEqualToString:@"N/A"]) {
+			aResort.liftsOpen = @"0";
+		} else {
+			aResort.liftsOpen = [currentSnowDataDict valueForKey:@"NumLiftsOpen"];
+		}
 		aResort.totalLifts = [currentSnowDataDict valueForKey:@"NumLiftsTotal"];
 		[resortsArray addObject: aResort];
 		[aResort release];
@@ -101,8 +110,9 @@
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
-	NSLog(@"Items in array: %i", [resortsArray count]);
+	NSLog(@"Items in array: %d", [resortsArray count]);
 	NSLog(@"Array references in memory: %1x", [resortsArray retainCount]);
+	[self.tableView reloadData];
 }
 
 /*
@@ -114,7 +124,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
-*/
+/*
 /*
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
@@ -256,77 +266,3 @@
 
 
 @end
-
-//Start hard-coded data
-//	Resort *aResort = [[Resort alloc] init];
-//	aResort.name = @"Arapahoe Basin Ski Area";
-//	aResort.snowTwoDays = [NSNumber numberWithInt: 0];
-//	aResort.baseSnow = [NSNumber numberWithInt: 18];
-//	aResort.status = @"Open";
-//	aResort.liftsOpen = [NSNumber numberWithInt: 1];
-//	aResort.totalLifts = [NSNumber numberWithInt: 7];
-//	[resortsArray addObject: aResort];
-//	//NSLog(@"yo yo: %@", [resortsArray count]);
-//	[aResort release];
-//	
-//	Resort *b = [[Resort alloc] init];
-//	b.name = @"Aspen Highlands";
-//	b.snowTwoDays = [NSNumber numberWithInt: 0];
-//	b.baseSnow = [NSNumber numberWithInt: 0];
-//	b.status = @"Projected opening: 12/12/09";
-//	b.liftsOpen = [NSNumber numberWithInt: 0];
-//	b.totalLifts = [NSNumber numberWithInt: 5];
-//	[resortsArray addObject: b];
-//	[b release];
-//	
-//	Resort *c = [[Resort alloc] init];
-//	c.name = @"Aspen Mountain";
-//	c.snowTwoDays = [NSNumber numberWithInt: 0];
-//	c.baseSnow = [NSNumber numberWithInt: 0];
-//	c.status = @"Projected opening: 11/26/09";
-//	c.liftsOpen = [NSNumber numberWithInt: 0];
-//	c.totalLifts = [NSNumber numberWithInt: 8];
-//	[resortsArray addObject: c];
-//	[c release];
-//	
-//	Resort *d = [[Resort alloc] init];
-//	d.name = @"Beaver Creek";
-//	d.snowTwoDays = [NSNumber numberWithInt: 0];
-//	d.baseSnow = [NSNumber numberWithInt: 0];
-//	d.status = @"Projected opening: 11/25/09";
-//	d.liftsOpen = [NSNumber numberWithInt: 0];
-//	d.totalLifts = [NSNumber numberWithInt: 25];
-//	[resortsArray addObject: d];
-//	[d release];
-//	
-//	Resort *e = [[Resort alloc] init];
-//	e.name = @"Breckenridge";
-//	e.snowTwoDays = [NSNumber numberWithInt: 0];
-//	e.baseSnow = [NSNumber numberWithInt: 0];
-//	e.status = @"Projected opening: 11/12/09";
-//	e.liftsOpen = [NSNumber numberWithInt: 0];
-//	e.totalLifts = [NSNumber numberWithInt: 30];
-//	[resortsArray addObject: e];
-//	[e release];
-//	
-//	Resort *f = [[Resort alloc] init];
-//	f.name = @"Buttermilk";
-//	f.snowTwoDays = [NSNumber numberWithInt: 0];
-//	f.baseSnow = [NSNumber numberWithInt: 0];
-//	f.status = @"Projected opening: 12/12/09";
-//	f.liftsOpen = [NSNumber numberWithInt: 0];
-//	f.totalLifts = [NSNumber numberWithInt: 7];
-//	[resortsArray addObject: f];
-//	[f release];
-//	
-//	Resort *g = [[Resort alloc] init];
-//	g.name = @"Copper Mountain Resort";
-//	g.snowTwoDays = [NSNumber numberWithInt: 0];
-//	g.baseSnow = [NSNumber numberWithInt: 0];
-//	g.status = @"Projected opening: 11/25/09";
-//	g.liftsOpen = [NSNumber numberWithInt: 0];
-//	g.totalLifts = [NSNumber numberWithInt: 22];
-//	[resortsArray addObject: g];
-//	[g release];
-//end hard coded data
-
