@@ -25,7 +25,9 @@
 	[snowData release];
 	snowData = [[NSMutableData alloc] init];
 	NSURL *url = [NSURL URLWithString: @"http://localhost:3000/widgets/snow_report.xml"];
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+	[request setHTTPMethod:@"GET"];
+	[request setValue:@"application/xml" forHTTPHeaderField:@"Accept"];
 	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	[connection release];
 	[request release];
@@ -63,11 +65,6 @@
 	} else if ([interestingTags containsObject:elementName]) {
 		currentElementName = elementName;
 		currentText = [[NSMutableString alloc] init];
-		if([elementName isEqualToString:@"TopDepth"]) {
-			if([[attributesDict objectForKey:@"unit"] isEqualToString:@"IN"]) {
-				NSLog(@"TopDepth");
-			}
-		}
 	}
 }
 
@@ -94,7 +91,7 @@
 		aResort.totalLifts = [currentSnowDataDict valueForKey:@"NumLiftsTotal"];
 		[resortsArray addObject: aResort];
 		[aResort release];
-		//NSLog(@"%@", currentSnowDataDict);
+		NSLog(@"%@", currentSnowDataDict);
 	}
 	[currentText release];
 	currentText = nil;
