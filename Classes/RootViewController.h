@@ -13,6 +13,7 @@
 	NSMutableData	*snowData;
 	UITableViewCell *nibLoadedCell;
 	UIActivityIndicatorView *activityIndicator;
+	UILabel *loadingLabel;
 	NSMutableString *snowDataString;
 	NSMutableDictionary *currentSnowDataDict;
 	NSString *currentElementName;
@@ -22,5 +23,8 @@
 
 @property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedCell;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, retain) IBOutlet UILabel *loadingLabel;
+
+- (IBAction)placeCall;
 
 @end

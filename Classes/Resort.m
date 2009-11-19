@@ -16,13 +16,15 @@
 @synthesize status;
 @synthesize liftsOpen;
 @synthesize totalLifts;
+@synthesize callAheadNumber;
 
 - (id)initWithName:(NSString *)newName
 	   snowTwoDays:(NSNumber *)newSnowTwoDays
 		  baseSnow:(NSNumber *)newBaseSnow
 			status:(NSString *)newStatus
 		 liftsOpen:(NSNumber *)newLiftsOpen
-		totalLifts:(NSNumber *)newTotalLifts {
+		totalLifts:(NSNumber *)newTotalLifts
+   callAheadNumber:(NSString *)newCallAheadNumber {
 	self = [super init];
 	if(nil != self) {
 		self.name = newName;
@@ -31,6 +33,7 @@
 		self.status = newStatus;
 		self.liftsOpen = newLiftsOpen;
 		self.totalLifts = newTotalLifts;
+		self.callAheadNumber = newCallAheadNumber;
 	}
 	return self;
 }
@@ -42,6 +45,7 @@
 	self.status = nil;
 	self.liftsOpen = nil;
 	self.totalLifts = nil;
+	self.callAheadNumber = nil; 
 	[super dealloc];
 }
 

@@ -16,6 +16,7 @@
 	NSString *status;
 	NSNumber *liftsOpen;
 	NSNumber *totalLifts;
+	NSString *callAheadNumber;
 }
 
 - (id)initWithName:(NSString *)newName
@@ -23,7 +24,8 @@
 		  baseSnow:(NSNumber *)newBaseSnow
 			status:(NSString *)newStatus
 		 liftsOpen:(NSNumber *)newLiftsOpen
-		totalLifts:(NSNumber *)newTotalLifts;
+		totalLifts:(NSNumber *)newTotalLifts
+   callAheadNumber:(NSString *)newCallAheadNumber;
 
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic, copy) NSNumber *snowTwoDays;
@@ -31,5 +33,6 @@
 @property(nonatomic, copy) NSString *status;
 @property(nonatomic, copy) NSNumber *liftsOpen;
 @property(nonatomic, copy) NSNumber *totalLifts;
+@property(nonatomic, copy) NSString *callAheadNumber;
 
 @end

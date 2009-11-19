@@ -8,23 +8,39 @@
 
 #import "RootViewController.h"
 
-#define INTERESTING_TAG_NAMES @"Name", @"TopDepth", @"Open", @"NewSnow48", @"NumLiftsTotal", @"NumLiftsOpen", nil
+#define INTERESTING_TAG_NAMES @"Name", @"TopDepth", @"Open", @"NewSnow48", @"NumLiftsTotal", @"NumLiftsOpen", @"CallAheadPhone", nil
 
 
 @implementation RootViewController
 
 @synthesize nibLoadedCell;
 @synthesize activityIndicator;
+@synthesize loadingLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	//loadingSubView = [[[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]] autorelease];
+//	CGFloat x = 320/2 - 120/2;
+//	CGFloat y = 480/2 - 45/2;
+//	CGRect rect = CGRectMake(x , y, 120.0f, 45.0f);
+//	loadingLabel = [[[UILabel alloc] initWithFrame:rect] autorelease];
+//	[loadingLabel setText:@"Loading..."];
+//	loadingLabel.backgroundColor = [UIColor clearColor];
+//	loadingLabel.font = [UIFont fontWithName:@"Helvetica" size: 14.0];
+//	loadingLabel.textColor = [UIColor grayColor]; 
+	activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+	//[activityIndicator setCenter:CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0)]; // I do this because I'm in landscape mode
+	[self.view addSubview:activityIndicator];
+	//[self.view addSubview:loadingLabel];
+	//[self.view addSubview:loadingSubView];
+	
 	interestingTags = [[NSSet alloc] initWithObjects: INTERESTING_TAG_NAMES];
 	[resortsArray release];
 	resortsArray = [[NSMutableArray alloc] init];
 
 	[snowData release];
 	snowData = [[NSMutableData alloc] init];
-	NSURL *url = [NSURL URLWithString: @"http://localhost:3000/widgets/snow_report.xml"];
+	NSURL *url = [NSURL URLWithString: @"http://postnewstools.com/widgets/snow_report.xml"];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
 	[request setHTTPMethod:@"GET"];
 	[request setValue:@"application/xml" forHTTPHeaderField:@"Accept"];
@@ -44,7 +60,7 @@
 	snowDataParser.delegate = self;
 	[snowDataParser parse];
 	[snowDataParser release];
-	[activityIndicator stopAnimating];
+	//[activityIndicator stopAnimating];
 }
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
@@ -89,6 +105,7 @@
 			aResort.liftsOpen = [currentSnowDataDict valueForKey:@"NumLiftsOpen"];
 		}
 		aResort.totalLifts = [currentSnowDataDict valueForKey:@"NumLiftsTotal"];
+		aResort.callAheadNumber = [currentSnowDataDict valueForKey:@"CallAheadPhone"];
 		[resortsArray addObject: aResort];
 		[aResort release];
 		NSLog(@"%@", currentSnowDataDict);
@@ -109,7 +126,13 @@
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
 	NSLog(@"Items in array: %d", [resortsArray count]);
 	NSLog(@"Array references in memory: %1x", [resortsArray retainCount]);
+	[loadingLabel setHidden:YES];
+	[activityIndicator stopAnimating];
 	[self.tableView reloadData];
+}
+
+- (void)placeCall {
+	NSLog(@"bango!");
 }
 
 /*
@@ -164,7 +187,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [resortsArray count];
-	//return 100;
+	//return 2;
 }
 
 
@@ -186,7 +209,15 @@
 	nameLabel.text = aResort.name;
 	//nameLabel.text = snowDataString;
 	UILabel *statusLabel = (UILabel*) [cell viewWithTag:2];
-	statusLabel.text = aResort.status;
+	UIButton *callAheadNumberButton = (UIButton*) [cell viewWithTag:6];
+	[callAheadNumberButton addTarget:self action:@selector(placeCall) forControlEvents:UIControlEventTouchUpInside];
+	if ([aResort.status isEqualToString:@"Call Ahead"]) {
+		//[callAheadNumberButton setTitle:aResort.callAheadNumber forState:UIControlStateNormal];
+		[callAheadNumberButton setTitle:aResort.status forState:UIControlStateNormal];
+	} else {
+		[callAheadNumberButton setHidden:YES];
+		statusLabel.text = aResort.status;
+	}
 	UILabel *liftsLabel = (UILabel*) [cell viewWithTag:3];
 	liftsLabel.text = [NSString stringWithFormat:@"Lifts open: %@ of %@", aResort.liftsOpen, aResort.totalLifts];
 	UILabel *snowTwoDaysLabel = (UILabel*) [cell viewWithTag:4];
