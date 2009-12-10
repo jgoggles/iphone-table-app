@@ -12,6 +12,7 @@
 @interface Resort : NSObject {
 	NSString *name;
 	NSNumber *snowTwoDays;
+	NSNumber *snowOneDay;
 	NSNumber *baseSnow;
 	NSString *status;
 	NSNumber *liftsOpen;
@@ -21,6 +22,7 @@
 
 - (id)initWithName:(NSString *)newName
 	   snowTwoDays:(NSNumber *)newSnowTwoDays
+		snowOneDay:(NSNumber *)newSnowOneDay
 		  baseSnow:(NSNumber *)newBaseSnow
 			status:(NSString *)newStatus
 		 liftsOpen:(NSNumber *)newLiftsOpen
@@ -29,6 +31,7 @@
 
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic, copy) NSNumber *snowTwoDays;
+@property(nonatomic, copy) NSNumber *snowOneDay;
 @property(nonatomic, copy) NSNumber *baseSnow;
 @property(nonatomic, copy) NSString *status;
 @property(nonatomic, copy) NSNumber *liftsOpen;

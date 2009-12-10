@@ -12,6 +12,7 @@
 
 @synthesize name;
 @synthesize snowTwoDays;
+@synthesize snowOneDay;
 @synthesize baseSnow;
 @synthesize status;
 @synthesize liftsOpen;
@@ -20,6 +21,7 @@
 
 - (id)initWithName:(NSString *)newName
 	   snowTwoDays:(NSNumber *)newSnowTwoDays
+		snowOneDay:(NSNumber *)newSnowOneDay
 		  baseSnow:(NSNumber *)newBaseSnow
 			status:(NSString *)newStatus
 		 liftsOpen:(NSNumber *)newLiftsOpen
@@ -29,6 +31,7 @@
 	if(nil != self) {
 		self.name = newName;
 		self.snowTwoDays = newSnowTwoDays;
+		self.snowOneDay = newSnowOneDay;
 		self.baseSnow = newBaseSnow;
 		self.status = newStatus;
 		self.liftsOpen = newLiftsOpen;
@@ -41,6 +44,7 @@
 - (void) dealloc {
 	self.name = nil;
 	self.snowTwoDays = nil;
+	self.snowOneDay = nil;
 	self.baseSnow = nil;
 	self.status = nil;
 	self.liftsOpen = nil;

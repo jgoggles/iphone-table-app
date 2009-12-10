@@ -8,7 +8,7 @@
 
 #import "Resort.h"
 
-@interface RootViewController : UITableViewController {
+@interface RootViewController : UITableViewController <UIAlertViewDelegate> {
 	NSMutableArray	*resortsArray;
 	NSMutableData	*snowData;
 	UITableViewCell *nibLoadedCell;
@@ -24,7 +24,5 @@
 @property (nonatomic, retain) IBOutlet UITableViewCell *nibLoadedCell;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) IBOutlet UILabel *loadingLabel;
-
-- (IBAction)placeCall;
 
 @end

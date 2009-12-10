@@ -16,10 +16,14 @@
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
 		CC5A9FA6109A306F00B56962 /* Resort.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5A9FA5109A306F00B56962 /* Resort.m */; };
+		CC8AC36210D1A9D30024D5BF /* iphone_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8AC36110D1A9D30024D5BF /* iphone_icon.png */; };
+		CC8AC36410D1AA0E0024D5BF /* snow_iphone_2.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8AC36310D1AA0E0024D5BF /* snow_iphone_2.png */; };
 		CCC9F088109B4E3000FE3775 /* ResortTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCC9F087109B4E3000FE3775 /* ResortTableCell.xib */; };
 		CCDC0E0110A2083D0036BAC9 /* snow_report_header.png in Resources */ = {isa = PBXBuildFile; fileRef = CCDC0E0010A2083D0036BAC9 /* snow_report_header.png */; };
 		CCDC0E3610A220C70036BAC9 /* snow_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CCDC0E3510A220C70036BAC9 /* snow_iphone.png */; };
 		CCDC0E3A10A221400036BAC9 /* snow_iphone_1.png in Resources */ = {isa = PBXBuildFile; fileRef = CCDC0E3910A221400036BAC9 /* snow_iphone_1.png */; };
+		CCE25FC210B5ED41001D24EA /* iphone_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE25FC110B5ED41001D24EA /* iphone_icon.png */; };
+		CCE2600610B5F342001D24EA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE2600510B5F342001D24EA /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,10 +42,14 @@
 		8D1107310486CEB800E47090 /* ResortTable-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ResortTable-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		CC5A9FA4109A306F00B56962 /* Resort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resort.h; sourceTree = "<group>"; };
 		CC5A9FA5109A306F00B56962 /* Resort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resort.m; sourceTree = "<group>"; };
+		CC8AC36110D1A9D30024D5BF /* iphone_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone_icon.png; sourceTree = "<group>"; };
+		CC8AC36310D1AA0E0024D5BF /* snow_iphone_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow_iphone_2.png; sourceTree = "<group>"; };
 		CCC9F087109B4E3000FE3775 /* ResortTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResortTableCell.xib; sourceTree = "<group>"; };
 		CCDC0E0010A2083D0036BAC9 /* snow_report_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow_report_header.png; sourceTree = "<group>"; };
 		CCDC0E3510A220C70036BAC9 /* snow_iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow_iphone.png; sourceTree = "<group>"; };
 		CCDC0E3910A221400036BAC9 /* snow_iphone_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow_iphone_1.png; sourceTree = "<group>"; };
+		CCE25FC110B5ED41001D24EA /* iphone_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphone_icon.png; path = ../../../Desktop/iphone_icon.png; sourceTree = SOURCE_ROOT; };
+		CCE2600510B5F342001D24EA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../../../Desktop/Default.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CC8AC36310D1AA0E0024D5BF /* snow_iphone_2.png */,
+				CC8AC36110D1A9D30024D5BF /* iphone_icon.png */,
+				CCE2600510B5F342001D24EA /* Default.png */,
+				CCE25FC110B5ED41001D24EA /* iphone_icon.png */,
 				CCDC0E3910A221400036BAC9 /* snow_iphone_1.png */,
 				CCDC0E3510A220C70036BAC9 /* snow_iphone.png */,
 				CCDC0E0010A2083D0036BAC9 /* snow_report_header.png */,
@@ -179,6 +191,10 @@
 				CCDC0E0110A2083D0036BAC9 /* snow_report_header.png in Resources */,
 				CCDC0E3610A220C70036BAC9 /* snow_iphone.png in Resources */,
 				CCDC0E3A10A221400036BAC9 /* snow_iphone_1.png in Resources */,
+				CCE25FC210B5ED41001D24EA /* iphone_icon.png in Resources */,
+				CCE2600610B5F342001D24EA /* Default.png in Resources */,
+				CC8AC36210D1A9D30024D5BF /* iphone_icon.png in Resources */,
+				CC8AC36410D1AA0E0024D5BF /* snow_iphone_2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +250,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};
@@ -247,9 +263,35 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
+		};
+		CC8AC38F10D1B8390024D5BF /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.0;
+			};
+			name = Distribution;
+		};
+		CC8AC39010D1B8390024D5BF /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ResortTable_Prefix.pch;
+				INFOPLIST_FILE = "ResortTable-Info.plist";
+				PRODUCT_NAME = ResortTable;
+			};
+			name = Distribution;
 		};
 /* End XCBuildConfiguration section */
 
@@ -259,6 +301,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				CC8AC39010D1B8390024D5BF /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -268,6 +311,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				CC8AC38F10D1B8390024D5BF /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

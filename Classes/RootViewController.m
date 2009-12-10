@@ -8,7 +8,7 @@
 
 #import "RootViewController.h"
 
-#define INTERESTING_TAG_NAMES @"Name", @"TopDepth", @"Open", @"NewSnow48", @"NumLiftsTotal", @"NumLiftsOpen", @"CallAheadPhone", nil
+#define INTERESTING_TAG_NAMES @"Name", @"TopDepth", @"Open", @"NewSnow24", @"NumLiftsTotal", @"NumLiftsOpen", @"CallAheadPhone", nil
 
 
 @implementation RootViewController
@@ -17,21 +17,28 @@
 @synthesize activityIndicator;
 @synthesize loadingLabel;
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	//loadingSubView = [[[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]] autorelease];
-//	CGFloat x = 320/2 - 120/2;
-//	CGFloat y = 480/2 - 45/2;
-//	CGRect rect = CGRectMake(x , y, 120.0f, 45.0f);
-//	loadingLabel = [[[UILabel alloc] initWithFrame:rect] autorelease];
-//	[loadingLabel setText:@"Loading..."];
-//	loadingLabel.backgroundColor = [UIColor clearColor];
-//	loadingLabel.font = [UIFont fontWithName:@"Helvetica" size: 14.0];
-//	loadingLabel.textColor = [UIColor grayColor]; 
+	
+	UIApplication* app = [UIApplication sharedApplication]; 
+	app.networkActivityIndicatorVisible = YES;
+	
+	CGFloat x = 320/2 - 120/2;
+	CGFloat y = 480/2 - 45/2;
+	CGRect rect = CGRectMake(x , y, 120.0f, 45.0f);
+
+	loadingLabel = [[[UILabel alloc] initWithFrame:rect] autorelease];
+	[loadingLabel setText:@"Loading..."];
+	loadingLabel.backgroundColor = [UIColor clearColor];
+	loadingLabel.font = [UIFont fontWithName:@"Helvetica" size: 14.0];
+	loadingLabel.textColor = [UIColor grayColor]; 
 	activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-	//[activityIndicator setCenter:CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0)]; // I do this because I'm in landscape mode
+	[activityIndicator setCenter:CGPointMake(120.0f, 193.0f)];
+	[loadingLabel setCenter:CGPointMake(200.0f, 193.0f)];
 	[self.view addSubview:activityIndicator];
-	//[self.view addSubview:loadingLabel];
+	[activityIndicator startAnimating];
+	[self.view addSubview:loadingLabel];
 	//[self.view addSubview:loadingSubView];
 	
 	interestingTags = [[NSSet alloc] initWithObjects: INTERESTING_TAG_NAMES];
@@ -60,7 +67,6 @@
 	snowDataParser.delegate = self;
 	[snowDataParser parse];
 	[snowDataParser release];
-	//[activityIndicator stopAnimating];
 }
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
@@ -96,7 +102,7 @@
 	} else if ([elementName isEqualToString:@"SkiArea"]) {
 		Resort *aResort = [[Resort alloc] init];
 		aResort.name = [currentSnowDataDict valueForKey:@"Name"];
-		aResort.snowTwoDays = [currentSnowDataDict valueForKey:@"NewSnow48"];
+		aResort.snowOneDay = [currentSnowDataDict valueForKey:@"NewSnow24"];
 		aResort.baseSnow = [currentSnowDataDict valueForKey:@"TopDepth"];
 		aResort.status = [currentSnowDataDict valueForKey:@"Open"];
 		if ([[currentSnowDataDict valueForKey:@"NumLiftsOpen"] isEqualToString:@"N/A"]) {
@@ -106,6 +112,8 @@
 		}
 		aResort.totalLifts = [currentSnowDataDict valueForKey:@"NumLiftsTotal"];
 		aResort.callAheadNumber = [currentSnowDataDict valueForKey:@"CallAheadPhone"];
+		//NSLog(@"%@: %@", aResort.name, aResort.callAheadNumber);
+		//NSLog(@"%@: %@", aResort.name, aResort.status);
 		[resortsArray addObject: aResort];
 		[aResort release];
 		NSLog(@"%@", currentSnowDataDict);
@@ -116,7 +124,6 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
 	[snowData appendData:data];
-	[activityIndicator startAnimating];
 }
 
 - (void)connectionDidFinishLoading: (NSURLConnection*)connection {
@@ -126,13 +133,33 @@
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
 	NSLog(@"Items in array: %d", [resortsArray count]);
 	NSLog(@"Array references in memory: %1x", [resortsArray retainCount]);
-	[loadingLabel setHidden:YES];
 	[activityIndicator stopAnimating];
+	UIApplication* app = [UIApplication sharedApplication]; 
+	app.networkActivityIndicatorVisible = NO;
 	[self.tableView reloadData];
+	[loadingLabel setHidden:YES];
 }
 
-- (void)placeCall {
-	NSLog(@"bango!");
+- (void)placeCall:(id)sender {
+	UIView *button = sender;
+	
+	for (UIView *parent = [button superview]; parent != nil; parent = [parent superview]) {
+		if ([parent isKindOfClass: [UITableViewCell class]]) {
+			UITableViewCell *cell = (UITableViewCell *) parent;               
+//			NSIndexPath *path = [self.tableView indexPathForCell: cell];
+			UILabel *phoneNumberLabel = (UILabel*) [cell viewWithTag:7];
+			NSLog([NSString stringWithFormat:@"phone: %@", phoneNumberLabel.text]);
+			NSString *phoneNumber = [NSString stringWithFormat:@"tel:%@", phoneNumberLabel.text];
+			phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"(" withString:@""];
+			phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@") " withString:@"-"];
+			NSLog([NSString stringWithFormat:@"%@", phoneNumber]);
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+			[phoneNumber release];
+			
+			break; // for
+		}
+	}
+	
 }
 
 /*
@@ -209,19 +236,25 @@
 	nameLabel.text = aResort.name;
 	//nameLabel.text = snowDataString;
 	UILabel *statusLabel = (UILabel*) [cell viewWithTag:2];
+	statusLabel.text = aResort.status;
+	UILabel *phoneNumberLabel = (UILabel*) [cell viewWithTag:7];
+	phoneNumberLabel.text = aResort.callAheadNumber;
 	UIButton *callAheadNumberButton = (UIButton*) [cell viewWithTag:6];
-	[callAheadNumberButton addTarget:self action:@selector(placeCall) forControlEvents:UIControlEventTouchUpInside];
-	if ([aResort.status isEqualToString:@"Call Ahead"]) {
-		//[callAheadNumberButton setTitle:aResort.callAheadNumber forState:UIControlStateNormal];
-		[callAheadNumberButton setTitle:aResort.status forState:UIControlStateNormal];
-	} else {
+	[callAheadNumberButton setTitle:aResort.status forState:UIControlStateNormal];
+	[callAheadNumberButton addTarget:self action:@selector(placeCall:) forControlEvents:UIControlEventTouchUpInside];
+	if ( [statusLabel.text isEqualToString:@"Open"] ) {
 		[callAheadNumberButton setHidden:YES];
-		statusLabel.text = aResort.status;
+		[statusLabel setHidden:NO];
+
+	} else {
+		[statusLabel setHidden:YES];
+		[callAheadNumberButton setHidden:NO];
 	}
+	
 	UILabel *liftsLabel = (UILabel*) [cell viewWithTag:3];
 	liftsLabel.text = [NSString stringWithFormat:@"Lifts open: %@ of %@", aResort.liftsOpen, aResort.totalLifts];
-	UILabel *snowTwoDaysLabel = (UILabel*) [cell viewWithTag:4];
-	snowTwoDaysLabel.text = [NSString stringWithFormat:@"48hr: %@\"", aResort.snowTwoDays];
+	UILabel *snowOneDayLabel = (UILabel*) [cell viewWithTag:4];
+	snowOneDayLabel.text = [NSString stringWithFormat:@"24hr: %@\"", aResort.snowOneDay];
 	UILabel *baseSnowLabel = (UILabel*) [cell viewWithTag:5];
 	baseSnowLabel.text = [NSString stringWithFormat:@"Base: %@\"", aResort.baseSnow];
 	
